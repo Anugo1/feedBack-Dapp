@@ -1,4 +1,4 @@
-// Replace with your deployed contract address
+
 const contractAddress = "0x30E1cB9918556C7067Ce9B644E9825FC55cA2c2F";
 const contractABI = [
     {
@@ -109,7 +109,6 @@ const contractABI = [
         "stateMutability": "view",
         "type": "function"
       },
-      
 ];
 
 let provider;
@@ -117,7 +116,9 @@ let signer;
 let contract;
 
 // Connect Wallet
-document.getElementById("connectWallet").addEventListener("click", async () => {
+const connectButton = document.getElementById("connectWallet");
+
+connectButton.addEventListener("click", async () => {
     if (window.ethereum) {
         try {
             provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -125,8 +126,10 @@ document.getElementById("connectWallet").addEventListener("click", async () => {
             signer = provider.getSigner();
             contract = new ethers.Contract(contractAddress, contractABI, signer);
             console.log("Wallet connected");
-
-            alert("Wallet connected successfully!");
+            
+            connectButton.textContent = "✅ Connected";
+            connectButton.disabled = true;
+            connectButton.classList.add("connected");
 
             // Load feedbacks only after the wallet is connected
             loadFeedbacks();
@@ -138,7 +141,6 @@ document.getElementById("connectWallet").addEventListener("click", async () => {
         alert("Please install MetaMask!");
     }
 });
-
 
 // Submit Feedback
 document.getElementById("submitFeedback").addEventListener("click", async () => {
@@ -179,7 +181,6 @@ async function loadFeedbacks() {
         alert("Failed to load feedbacks. Check console for details.");
     }
 }
-
 
 // Load feedbacks on page load
 window.onload = loadFeedbacks;
