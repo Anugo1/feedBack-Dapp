@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback DApp</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Feedback DApp</h1>
+        
+        <!-- Connect Wallet Button -->
+        <button id="connectWallet">Connect Wallet</button>
+
+        <!-- Submit Feedback Form -->
+        <div class="form">
+            <h2>Submit Feedback</h2>
+            <textarea id="feedbackInput" placeholder="Enter your feedback"></textarea>
+            <button id="submitFeedback">Submit</button>
+        </div>
+
+        <!-- Display Feedback -->
+        <div class="feedbacks">
+            <h2>All Feedback</h2>
+            <ul id="feedbackList"></ul>
+        </div>
+    </div>
+
+    <!-- Include ethers.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <!-- Include your app.js script -->
+    <script src="app.js"></script>
+</body>
+</html>
