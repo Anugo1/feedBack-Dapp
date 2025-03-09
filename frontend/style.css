@@ -1,50 +1,57 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Orbitron', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
-    color: #333;
+    background-color: #0d0d0d;
+    color: #e0e0e0;
 }
 
 .container {
     max-width: 600px;
     margin: 50px auto;
     padding: 20px;
-    background: #fff;
+    background: #1a1a1d;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px #00ffea, 0 0 40px #00ffea;
 }
 
-h1 {
+h1, h2 {
     text-align: center;
-}
-
-.form {
-    margin-bottom: 20px;
-}
-
-textarea {
-    width: 100%;
-    height: 100px;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    color: #00ffea;
+    text-shadow: 0 0 10px #00ffea, 0 0 20px #00ffea;
 }
 
 button {
     display: block;
     width: 100%;
-    padding: 10px;
-    background: #007bff;
+    padding: 12px;
+    background: linear-gradient(135deg, #ff00cc, #333399);
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 0 15px #ff00cc, 0 0 25px #333399;
+    transition: background 0.3s, transform 0.2s;
 }
 
 button:hover {
-    background: #0056b3;
+    background: linear-gradient(135deg, #333399, #ff00cc);
+    transform: scale(1.05);
+}
+
+textarea {
+    width: 100%;
+    height: 120px;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #333;
+    background-color: #1f1f22;
+    color: #e0e0e0;
+    resize: none;
+    box-shadow: inset 0 0 10px #00ffea;
 }
 
 .feedbacks ul {
@@ -53,9 +60,35 @@ button:hover {
 }
 
 .feedbacks li {
-    background: #f9f9f9;
-    padding: 10px;
-    margin-bottom: 10px;
+    background: #1f1f22;
+    padding: 12px;
+    margin-bottom: 12px;
     border-radius: 4px;
-    border: 1px solid #ddd;
+    border: 1px solid #333;
+    box-shadow: 0 0 10px #00ffea;
 }
+
+#connectWallet {
+    margin-bottom: 20px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1d;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #00ffea;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #00bfa5;
+}
+
+/* Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
