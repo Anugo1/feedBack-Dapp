@@ -1,4 +1,4 @@
-# 🚀 Cyberpunk Feedback DApp
+# Feedback DApp
 
 Welcome to the **Cyberpunk Feedback DApp**! This decentralized application allows users to submit feedback securely on the blockchain. The DApp is live on the [Sepolia Testnet](https://sepolia.etherscan.io/) and hosted at:
 
