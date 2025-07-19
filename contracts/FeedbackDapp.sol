@@ -1,40 +1,59 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
-import "hardhat/console.sol";
+contract Feedback {
+    // ─────────────── Events ───────────────
+    event FeedbackSubmitted(
+        uint indexed productId,
+        address indexed user,
+        uint8 rating,
+        bytes32 reviewHash,
+        uint timestamp
+    );
 
-contract FeedbackDapp {
-    event FeedbackAdded(uint256 id, string feedback, address indexed user);
-
-    struct Feedback {
-        uint256 id;
-        string feedback;
+    // ─────────────── Data ───────────────
+    struct Review {
         address user;
+        uint8  rating;       // 1‑5
+        bytes32 reviewHash;  // IPFS CIDv0 multihash or SHA‑256 digest
+        uint   timestamp;    // block.timestamp
     }
 
-    Feedback[] public feedbacks;
+    mapping(uint => Review[]) private productReviews;        // productId → reviews
+    mapping(uint => mapping(address => bool)) private voted; // optional: prevent duplicates
 
-    constructor() {
-        console.log("Feedback Dapp is deployed");
+    // ─────────────── Write ───────────────
+    function submitFeedback(
+        uint productId,
+        uint8 rating,
+        bytes32 reviewHash
+    ) external {
+        require(rating >= 1 && rating <= 5, "Rating must be 1‑5");
+        require(reviewHash != bytes32(0),     "Empty review hash");
+        require(!voted[productId][msg.sender],"Already submitted");
+
+        productReviews[productId].push(
+            Review(msg.sender, rating, reviewHash, block.timestamp)
+        );
+        voted[productId][msg.sender] = true;
+
+        emit FeedbackSubmitted(
+            productId,
+            msg.sender,
+            rating,
+            reviewHash,
+            block.timestamp
+        );
     }
 
-    function addFeedback(string memory _feedback) public {
-        require(bytes(_feedback).length > 0, "Feedback cannot be empty");
-        uint256 feedbackId = feedbacks.length;
-        feedbacks.push(Feedback(feedbackId, _feedback, msg.sender));
-        emit FeedbackAdded(feedbackId, _feedback, msg.sender);
+    // ─────────────── Read ───────────────
+    function getFeedbackForProduct(
+        uint productId
+    ) external view returns (Review[] memory) {
+        return productReviews[productId];
     }
 
-    function getFeedBacks() public view returns (Feedback[] memory) {
-        Feedback[] memory allFeedbacks = new Feedback[](feedbacks.length);
-        for (uint256 i = 0; i < feedbacks.length; i++) {
-            allFeedbacks[i] = feedbacks[i];
-        }
-        return allFeedbacks;
-    }
-
-    function getFeedBack(uint256 _id) public view returns (Feedback memory) {
-        require(_id < feedbacks.length, "Feedback ID out of range");
-        return feedbacks[_id];
+    function reviewCount(uint productId) external view returns (uint) {
+        return productReviews[productId].length;
     }
 }
