@@ -28,7 +28,7 @@ contract Feedback {
         uint8 rating,
         bytes32 reviewHash
     ) external {
-        require(rating >= 1 && rating <= 5, "Rating must be 1‑5");
+        require(rating >= 1 && rating <= 5, "Rating must be between 1 and 5");   
         require(reviewHash != bytes32(0),     "Empty review hash");
         require(!voted[productId][msg.sender],"Already submitted");
 
